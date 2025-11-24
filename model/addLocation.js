@@ -1,0 +1,19 @@
+
+
+
+ const mongoose = require('mongoose');
+
+
+
+ const addlocationSchema = mongoose.Schema({
+    tname:{
+    type :String,
+    required:true,
+  },
+   location:{
+    type:String,
+    required:true
+   }
+ });
+
+ module.exports = mongoose.model("locations", addlocationSchema)
