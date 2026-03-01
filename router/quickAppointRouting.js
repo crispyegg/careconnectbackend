@@ -8,43 +8,38 @@ const { status } = require('server/reply');
 const { error } = require('server/router');
 
 
-quickAppointRouting.post('/quickappoint', async (req, res) => {
-  try {
-    const { name, email, phone } = req.body;
-
-    const transport = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: 'ashifsirajkhan@gmail.com',
-        pass: 'YOUR_APP_PASSWORD'
-      }
-    });
+quickAppointRouting.post('/quickappoint' , (req,res)=>{
+    try{
+      const{name,email,phone}= req.body;
+      const transport = nodemailer.createTransport({
+        service:'gmail',
+        auth:{
+          user:'ashifsirajkhan@gmail.com',
+          pass:'clhq xdip lerc uavb'
+        },
+      });
+     
 
     const mailOptions = {
-      from: 'ashifsirajkhan@gmail.com',  // must be your Gmail
+      from: `${email}`,
       to: 'ashifsirajkhan@gmail.com',
-      replyTo: email,                   // ✅ dynamic user email
       subject: 'New Quick Appointment Request',
-      text: `Name: ${name}
-Email: ${email}
-Phone: ${phone}`
-    };
+      text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}`
 
-    await transport.sendMail(mailOptions);
+    }
+      transport.sendMail(mailOptions,(error, info)=>{
+        if(error) throw error;
+        res.send({status:true,message:'Mail Sent Suceessfully'});
+        console.log('Mail sent');     
+      })
+    }  
+    
+    catch(err){
+      res.send({status:false , message:'something went wrong'})
+    }
+})
 
-    res.status(200).json({
-      status: true,
-      message: 'Mail Sent Successfully'
-    });
 
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({
-      status: false,
-      message: 'Mail Failed'
-    });
-  }
-});
 
 
 module.exports = quickAppointRouting
