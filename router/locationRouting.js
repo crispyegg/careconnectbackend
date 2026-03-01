@@ -2,7 +2,7 @@
 
 const express = require('express')
 const addLocationModel=  require('../model/addLocation.js');
-const addlocationRouting = express.Router();
+const   addlocationRouting = express.Router();
 
 
 addlocationRouting.post('/addlocation', async (req,res)=>{
